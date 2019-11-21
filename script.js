@@ -3,33 +3,7 @@ window.addEventListener("load",function(){
    
    let form = document.querySelector("#launchForm");
    form.addEventListener("submit",function(event){
-      let pilotNameInput= document.querySelector("input[name=pilotName]").value;
-      let coPilotInput= document.querySelector("input[name=copilotName]").value;
-      let fuelInput= document.querySelector("input[name=fuelLevel]").value;
-      let massInput=document.querySelector("input[name=cargoMass]").value;
-      if (pilotNameInput==="" || coPilotInput===""||fuelInput ===""||massInput ===""){
-      alert("All fields are required");
-      }
-      if(isNaN(pilotNameInput)===false){
-         alert("Name must only contain letters");
-      } 
-      if(isNaN(coPilotInput)===false){
-      alert("Name must only contain letters");
-    }
-     if(isNaN(fuelInput)===true){
-      alert("Fuel level must be a number");
-     } 
-     if(isNaN(massInput)===true){
-         alert("Mass must be a number");
-     }
       
-      event.preventDefault();
-   });
-  
-   
-   let button = document.getElementById("formSubmit");
-   
-   button.addEventListener("click", function(event){
       let fuelInput= document.querySelector("input[name=fuelLevel]").value;
       let fuel = document.getElementById("fuelStatus")
       let massInput=document.querySelector("input[name=cargoMass]").value;
@@ -41,17 +15,34 @@ window.addEventListener("load",function(){
       let cName = document.getElementById("copilotStatus");
       let launchStatus= document.getElementById("launchStatus");
       let coPilot= cName.innerHTML=`Co-Pilot ${coPilotInput} is ready for launch.`
-    faulty= document.getElementById("faultyItems").style.visibility="hidden";
-    if (fuelInput < 10000){
+      faulty= document.getElementById("faultyItems").style.visibility="hidden";
+      if (pilotNameInput==="" || coPilotInput===""||fuelInput ===""||massInput ===""){
+      alert("All fields are required");
+      }
+      else if(isNaN(pilotNameInput)===false || isNaN(coPilotInput)===false){
+         alert("Name must only contain letters");
+      
+    } else if(isNaN(fuelInput)===true){
+      alert("Fuel level must be a number");
+    
+   } else if(isNaN(massInput)===true){
+         alert("Mass must be a number");
+
+   }else if (fuelInput < 10000 ){
        let fuel1 = fuel.innerHTML=`Fuel too low for launch.`
        let launch = launchStatus.innerHTML=`Shuttle Not Ready for Launch`
        launchStatus.style.color="red";
        faulty =document.getElementById("faultyItems").style.visibility="visible"
     }
-    if (massInput>10000){
+    else if (massInput>10000){
     let mass1= mass.innerHTML=`Cargo mass too high for launch.`
+    let launch = launchStatus.innerHTML=`Shuttle Not Ready for Launch`
+    launchStatus.style.color="red";
     faulty =document.getElementById("faultyItems").style.visibility="visible"
+    }else{
+       faulty="hidden";
     }
+    event.preventDefault()
    });
   
 
@@ -73,9 +64,9 @@ formSubmit.addEventListener("click", function() {
 </ol>
 <img src="${json[2].image}">`
       });
-   });
-   event.preventDefault();
-});
+   });  
+ // event.preventDefault();
+ });
 event.preventDefault();
 });
 
